@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Traffic Anomaly Detection</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Network Traffic Anomaly Detection</h1>
+        
+        <!-- Generate Data Button -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">Generate Sample Data</h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="startDate" class="form-label">Start Date</label>
+                            <input type="datetime-local" class="form-control" id="startDate">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="duration" class="form-label">Duration (hours)</label>
+                            <input type="number" class="form-control" id="duration" value="24" min="1" max="168">
+                        </div>
+                    </div>
+                </div>
+                <button id="generateBtn" class="btn btn-secondary">Generate Sample Data</button>
+                <div id="generationStatus" class="mt-2 d-none">
+                    <div class="alert alert-info">Generating sample data...</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Upload Form -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">Upload Network Traffic Data</h5>
+                <form id="uploadForm" class="mt-3">
+                    <div class="mb-3">
+                        <input type="file" class="form-control" id="fileInput" accept=".csv" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Analyze</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div id="loading" class="text-center d-none">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-2">Analyzing network traffic data...</p>
+        </div>
+
+        <!-- Results Section -->
+        <div id="results" class="d-none">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Analysis Results</h5>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="stat-box">
+                                <h6>Total Records</h6>
+                                <p id="totalRecords">-</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="stat-box">
+                                <h6>Anomalies Detected</h6>
+                                <p id="anomalyCount">-</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="stat-box">
+                                <h6>Anomaly Percentage</h6>
+                                <p id="anomalyPercentage">-</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Visualizations -->
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">Scatter Plot</h5>
+                            <img id="scatterPlot" class="img-fluid" alt="Scatter Plot">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">Distribution Plot</h5>
+                            <img id="distributionPlot" class="img-fluid" alt="Distribution Plot">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add this after the visualizations section -->
+            <div class="card mb-4" id="recommendationsCard">
+                <div class="card-body">
+                    <h5 class="card-title">Mitigation Recommendations</h5>
+                    <div id="recommendationsList">
+                        <!-- Recommendations will be inserted here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Download Button -->
+            <div class="text-center mb-4">
+                <button id="downloadBtn" class="btn btn-success">Download Anomaly Report</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html> 
